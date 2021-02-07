@@ -72,6 +72,9 @@ def check_before_move(pt):
     return False
 
 def find_treasure(pt):
+    '''
+    Find treasure by location
+    '''
     global POSITION_TREASURE
     if pt.is_equal_to(POSITION_TREASURE):
         return True
