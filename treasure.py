@@ -24,6 +24,15 @@ class Point:
 
         return False
 
+    def is_adjacent_to(self, pt):
+        if ((self.y < pt.y - 1) or (self.y > pt.y + 1)):
+            return False
+
+        if ((self.x < pt.x - 1) or (self.x > pt.x + 1)):
+            return False
+
+        return True
+
 POSITION_TREASURE = None
 POSSIBLE_TREASURE_COORDINATE = [
     Point(3, 1), Point(4, 1), Point(5, 1), Point(6, 1),
@@ -64,6 +73,17 @@ def generate_treasure_coordinate():
     index_treasure = random.randrange(16)
     global POSSIBLE_TREASURE_COORDINATE, POSITION_TREASURE
     POSITION_TREASURE = POSSIBLE_TREASURE_COORDINATE[index_treasure]
+
+    adjacent = [POSITION_TREASURE.to_string()]
+    for possible in POSSIBLE_TREASURE_COORDINATE:
+        if possible.is_equal_to(POSITION_TREASURE):
+            continue
+        
+        if possible.is_adjacent_to(POSITION_TREASURE):
+            adjacent.append(possible.to_string())
+    
+    adjacent_str = ", ".join(adjacent)
+    print(f'The treasure might be located in {adjacent_str}')
 
 def check_before_move(pt):
     for possible in POSSIBLE_TREASURE_COORDINATE:
